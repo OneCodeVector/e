@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b15xi7ftu2ll7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qii7c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_icn68"]
+radius = 1.0
+
+[node name="Bullet" type="Node2D"]
+
+[node name="Bullet" type="Area2D" parent="."]
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Bullet"]
+scale = Vector2(2, 2)
+mesh = SubResource("SphereMesh_qii7c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+shape = SubResource("CircleShape2D_icn68")

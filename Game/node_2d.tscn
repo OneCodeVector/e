@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://dk8b2li5qi1qr"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_m4osb"]
+[ext_resource type="Script" path="res://BarrelRotator.gd" id="2_isqyp"]
+[ext_resource type="Script" path="res://FPSCounter.gd" id="3_1j7h8"]
+[ext_resource type="Script" path="res://Bullet.gd" id="4_2wihi"]
+[ext_resource type="Script" path="res://CollisionShape2D.gd" id="4_3myrd"]
+[ext_resource type="Texture2D" uid="uid://c1kyyxq1s81v7" path="res://Barrel.png" id="4_s2op3"]
+[ext_resource type="Texture2D" uid="uid://cj0rnmdx4kq06" path="res://m4-sherman-pixilart.png" id="5_cgfjt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm1u0"]
+size = Vector2(81, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eceg2"]
+size = Vector2(998.877, 3.5)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0bfnx"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ulge1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_om7wt"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ihkgk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wupnc"]
+radius = 1.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_m4osb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-6.5, -15)
+shape = SubResource("RectangleShape2D_wm1u0")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -200)
+
+[node name="Label" type="Label" parent="Player"]
+offset_left = 526.0
+offset_top = -524.0
+offset_right = 566.0
+offset_bottom = -501.0
+script = ExtResource("3_1j7h8")
+
+[node name="BarrelPivot" type="Node2D" parent="Player" node_paths=PackedStringArray("Bullet")]
+position = Vector2(7, -31)
+script = ExtResource("2_isqyp")
+Bullet = NodePath("../../Bullet")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/BarrelPivot"]
+position = Vector2(28, 6)
+texture = ExtResource("4_s2op3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(0, -11)
+texture = ExtResource("5_cgfjt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 325)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-2.67029e-05, 0.25)
+scale = Vector2(1.00112, 1)
+shape = SubResource("RectangleShape2D_eceg2")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+scale = Vector2(1000, 3)
+mesh = SubResource("QuadMesh_0bfnx")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(189, 254)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D2"]
+scale = Vector2(20, 20)
+mesh = SubResource("QuadMesh_ulge1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_om7wt")
+script = ExtResource("4_3myrd")
+
+[node name="Bullet" type="Area2D" parent="."]
+position = Vector2(72, 0)
+script = ExtResource("4_2wihi")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Bullet"]
+scale = Vector2(2, 2)
+mesh = SubResource("SphereMesh_ihkgk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet"]
+shape = SubResource("CircleShape2D_wupnc")
